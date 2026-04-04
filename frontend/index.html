@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contactos — Grupos y personas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="top-inner">
+        <h1>Directorio de contactos</h1>
+        <p class="subtitle">Personas por grupo · Identificadores internos UUID</p>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <nav class="tabs" aria-label="Secciones">
+        <button type="button" class="tab active" data-tab="personas">Personas</button>
+        <button type="button" class="tab" data-tab="grupos">Grupos</button>
+      </nav>
+
+      <p id="toast" class="toast" role="status" aria-live="polite" hidden></p>
+
+      <section id="panel-personas" class="panel active">
+        <div class="toolbar toolbar--with-search">
+          <button type="button" class="btn primary" id="btn-nueva-persona">Nueva persona</button>
+          <label class="search-wrap" for="buscar-personas">
+            <span class="visually-hidden">Buscar personas</span>
+            <input
+              type="search"
+              id="buscar-personas"
+              class="search-input"
+              placeholder="Buscar por nombre, correo, grupo, UUID…"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </label>
+          <span class="hint" id="count-personas"></span>
+        </div>
+        <div id="lista-personas" class="grid-personas"></div>
+      </section>
+
+      <section id="panel-grupos" class="panel">
+        <div class="toolbar toolbar--with-search">
+          <button type="button" class="btn primary" id="btn-nuevo-grupo">Nuevo grupo</button>
+          <label class="search-wrap" for="buscar-grupos">
+            <span class="visually-hidden">Buscar grupos</span>
+            <input
+              type="search"
+              id="buscar-grupos"
+              class="search-input"
+              placeholder="Buscar por nombre de grupo o UUID…"
+              autocomplete="off"
+              spellcheck="false"
+            />
+          </label>
+          <span class="hint" id="count-grupos"></span>
+        </div>
+        <div id="lista-grupos" class="grid-grupos"></div>
+      </section>
+    </main>
+
+    <dialog id="modal-persona" class="modal">
+      <form method="dialog" class="modal-box modal-box--persona" id="form-persona">
+        <h2 id="titulo-modal-persona">Persona</h2>
+        <p id="persona-uuid-hint" class="modal-uuid-hint" hidden>
+          <span class="modal-uuid-label">Código interno (UUID)</span>
+          <code id="persona-uuid-text"></code>
+        </p>
+        <input type="hidden" id="persona-codigo" />
+        <label>Nombres<input type="text" id="persona-nombres" required maxlength="100" /></label>
+        <label>Apellidos<input type="text" id="persona-apellidos" required maxlength="100" /></label>
+        <label>Correo<input type="email" id="persona-correo" required maxlength="150" /></label>
+        <label>Celular<input type="text" id="persona-celular" maxlength="20" /></label>
+        <label>Dirección<input type="text" id="persona-direccion" maxlength="200" /></label>
+        <label>Grupo
+          <select id="persona-grupo" required></select>
+        </label>
+        <label>Observaciones<textarea id="persona-obs" rows="3"></textarea></label>
+        <label class="row-check">
+          <input type="checkbox" id="persona-activo" checked />
+          Activo
+        </label>
+        <label>Fotografía (JPG, PNG, WebP, GIF; máx. 5 MB)
+          <input type="file" id="persona-foto" accept="image/jpeg,image/png,image/webp,image/gif" />
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="btn ghost" data-close>Cancelar</button>
+          <button type="submit" class="btn primary">Guardar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="modal-grupo" class="modal">
+      <form method="dialog" class="modal-box modal-box--grupo" id="form-grupo">
+        <h2 id="titulo-modal-grupo">Grupo</h2>
+        <p id="grupo-uuid-hint" class="modal-uuid-hint" hidden>
+          <span class="modal-uuid-label">Código interno (UUID)</span>
+          <code id="grupo-uuid-text"></code>
+        </p>
+        <input type="hidden" id="grupo-codigo" />
+        <label>Nombre del grupo<input type="text" id="grupo-nombre" required maxlength="100" /></label>
+        <label class="row-check">
+          <input type="checkbox" id="grupo-activo" checked />
+          Activo
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="btn ghost" data-close>Cancelar</button>
+          <button type="submit" class="btn primary">Guardar</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
