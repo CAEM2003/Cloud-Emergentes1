@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://TU-SERVICIO.onrender.com/api/:path*"
+    },
+    {
+      "source": "/static/:path*",
+      "destination": "https://TU-SERVICIO.onrender.com/static/:path*"
+    }
+  ]
+}

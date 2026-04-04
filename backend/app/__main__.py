@@ -10,7 +10,8 @@ from .main import app
 
 
 def main() -> None:
-    host = (os.getenv("HOST") or "127.0.0.1").strip()
+    # En Render/Railway/Fly suelen definir PORT; hay que escuchar en 0.0.0.0 para aceptar tráfico externo.
+    host = (os.getenv("HOST") or "0.0.0.0").strip()
     port = int((os.getenv("PORT") or "8000").strip())
     config = Config()
     config.bind = [f"{host}:{port}"]

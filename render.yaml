@@ -1,0 +1,13 @@
+# Blueprint opcional: en Render → New → Blueprint → conecta este repo.
+# Tras el primer deploy, añade en Environment la variable DATABASE_URL (URI Postgres de Supabase).
+services:
+  - type: web
+    name: contactos-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m app
+    envVars:
+      - key: DATABASE_URL
+        sync: false
