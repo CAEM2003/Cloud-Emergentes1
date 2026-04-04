@@ -41,11 +41,14 @@ Las variables `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_…` sirven par
 3. Configuración sugerida:
    - **Root Directory:** `backend`
    - **Build Command:** `pip install -r requirements.txt`
-   - **Start Command:** `python -m app`
-4. **Environment → Add Environment Variable:** `DATABASE_URL` = tu URI de Supabase (`postgresql+psycopg2://...`, con `?sslmode=require` si el panel lo indica).
+   - **Start Command:** `hypercorn app.main:app --bind 0.0.0.0:$PORT`
+   - **Environment →** `PYTHON_VERSION` = `3.12.8` (evita que Render use Python 3.14 por defecto).
+4. **Environment →** `DATABASE_URL` = tu URI de Supabase (`postgresql+psycopg2://...`, con `?sslmode=require`). Sin esto o con URI mala, el arranque puede fallar al crear tablas.
 5. Tras el deploy, la URL pública tendrá la API en `/api/...`, la documentación en `/docs` y la interfaz en `/ui/` (si el repo incluye la carpeta `frontend` junto a `backend`).
 
-> Render inyecta `PORT` automáticamente. El servidor escucha en `0.0.0.0` por defecto.
+> Render inyecta `PORT` automáticamente.
+
+**Si el build sale bien pero “Exited with status 1”:** abre **Logs** en Render y busca el traceback (casi siempre conexión a Postgres o `DATABASE_URL`). Local también puedes usar `python -m app`.
 
 Opcional: **New → Blueprint** y selecciona `render.yaml` del repo; luego añade `DATABASE_URL` a mano en el servicio.
 

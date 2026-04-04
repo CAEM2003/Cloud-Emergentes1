@@ -7,7 +7,10 @@ services:
     plan: free
     rootDir: backend
     buildCommand: pip install -r requirements.txt
-    startCommand: python -m app
+    # $PORT lo define Render; hypercorn explícito evita rarezas con Python 3.14 por defecto.
+    startCommand: hypercorn app.main:app --bind 0.0.0.0:$PORT
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
       - key: DATABASE_URL
         sync: false
